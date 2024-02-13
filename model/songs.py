@@ -48,7 +48,7 @@ def initSongs():
     Song21 = Song(name="Dark Horse", url="", description=" Katy Perry ", uri="https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/02/26/10/katy-perry-dark-horse-v2.jpg", tokens="21")
     Song22 = Song(name="Watch", url="", description=" Billie Eilish ", uri=" https://thomasbleach.files.wordpress.com/2017/07/billie.jpg", tokens="22")
     Song23 = Song(name="Eyes Without Face", url="", description=" Billy idol ", uri="https://i.ytimg.com/vi/e7U1YZNgwnY/maxresdefault.jpg", tokens="23")
-    Song3 = Song(name="Good Days", url="", description=" SZA", uri="https://upload.wikimedia.org/wikipedia/en/7/7c/SZA_-_Good_Days.png", tokens="3")
+    Song24 = Song(name="Good Days", url="", description=" SZA", uri="https://upload.wikimedia.org/wikipedia/en/7/7c/SZA_-_Good_Days.png", tokens="24")
     Song25 = Song(name="sdp interlude", url="", description="Travis Scott ", uri="https://i.scdn.co/image/ab67616d0000b273f54b99bf27cda88f4a7403ce", tokens="25")
     Song26 = Song(name="Mary", url="", description=" Alex G ", uri="https://i.scdn.co/image/ab67616d0000b273c85ca3b845a922baff3041c7", tokens="26")
     Song27 = Song(name="Flashing Lights", url="", description="Kanye West ", uri="https://i.scdn.co/image/ab67616d0000b27326f7f19c7f0381e56156c94a", tokens="27")
