@@ -35,6 +35,14 @@ def initSongs():
     Song8 = Song(name="Often", url="", description=" The Weeknd", uri="https://cdns-images.dzcdn.net/images/cover/eea9f7fc913300e40307a0ff70dc73cf/350x350.jpg", tokens="8")
     Song9 = Song(name="Thank God", url="", description=" Travis Scott", uri="data:image/jpeg;base64,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", tokens="9")
     Song10 = Song(name="God did ", url="", description=" DJ Khalid", uri="https://upload.wikimedia.org/wikipedia/en/0/0a/DJ_Khaled_-_God_Did.png", tokens="10")
+    Song11 = Song(name="Badtameez Dil", url="", description=" Yeh Jawaani Hai Deewani", uri="https://m.media-amazon.com/images/M/MV5BODA4MjM2ODk4OF5BMl5BanBnXkFtZTcwNDgzODk1OQ@@._V1_FMjpg_UX1000_.jpg", tokens="11")
+    Song12 = Song(name="Same Old Love", url="", description=" Selena Gomez", uri="https://upload.wikimedia.org/wikipedia/en/b/b3/Same_Old_Love_by_Selena_Gomez.png", tokens="12")
+    Song13 = Song(name="Waka Waka ", url="", description=" Shakira", uri="https://photos.prnewswire.com/prnfull/20100901/NY58538-a", tokens="13")
+    Song14 = Song(name="Swim", url="", description=" Chase Atlantic ", uri="https://i.ytimg.com/vi/ykP640XEjSQ/maxresdefault.jpg", tokens="14")
+    Song15 = Song(name="Fireside", url="", description=" Arctic Monkeys", uri="https://i.ytimg.com/vi/PG8yTUeptFU/maxresdefault.jpg", tokens="15")
+    Song16 = Song(name="Daddy Issues", url="", description=" The Neighborhood", uri="https://i.scdn.co/image/ab67616d0000b2733066581d697fbdee4303d685", tokens="16")
+    Song17 = Song(name="Art Deco", url="", description="Lana Del Rey ", uri="https://static.wikia.nocookie.net/lanadelrey/images/1/19/Honeymoon.jpg/revision/latest?cb=20170706082252", tokens="17")
+    Song18 = Song(name="The Color Violet", url="", description=" Tory Lanez ", uri="https://i1.sndcdn.com/artworks-XTdw6XGAR3WX-0-t500x500.jpg", tokens="18")
 
 
     db.session.add(Song1)
@@ -47,12 +55,14 @@ def initSongs():
     db.session.add(Song8)
     db.session.add(Song9)
     db.session.add(Song10)
-    
-
-
-
-
-
+    db.session.add(Song11)
+    db.session.add(Song12)
+    db.session.add(Song13)
+    db.session.add(Song14)
+    db.session.add(Song15)
+    db.session.add(Song16)
+    db.session.add(Song17)
+    db.session.add(Song18)
 
     db.session.commit()
 
