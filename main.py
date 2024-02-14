@@ -20,6 +20,8 @@ from model.users import initUsers
 from model.players import initPlayers
 from model.songs import initSongs
 
+
+
 # setup App pages
 from projects.projects import app_projects # Blueprint directory import projects definition
 
@@ -33,7 +35,12 @@ app.register_blueprint(player_api)
 app.register_blueprint(Song_api)
 app.register_blueprint(app_projects) # register app pages
 
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*": {
+    "origins": ["http://127.0.0.1:5500",
+
+                                                    
+                                                    ]}})
+
 @app.before_request
 def before_request():
     allowed_origin = request.headers.get('Origin')
@@ -50,6 +57,8 @@ def page_not_found(e):
 @app.route('/')  # connects default URL to index() function
 def index():
     return render_template("index.html")
+
+
 
 @app.route('/album/<album_name>')
 def album(album_name):
