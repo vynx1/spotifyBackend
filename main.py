@@ -17,7 +17,6 @@ from api.player import player_api
 from api.songs import Song_api
 # database migrations
 from model.users import initUsers
-from model.players import initPlayers
 from model.songs import initSongs
 
 # setup App pages
@@ -37,9 +36,10 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 @app.before_request
 def before_request():
     allowed_origin = request.headers.get('Origin')
-    if allowed_origin in ['http://localhost:4100', 'http://127.0.0.1:4100', 'https://nighthawkcoders.github.io']:
+    if allowed_origin in ['http://localhost:4100', 'http://127.0.0.1:4100', 'http://127.0.0.1:4200', 'http://localhost:4200', 'https://vynz123.github.io']:
         cors.add_allowed_origin(allowed_origin)
     initSongs()
+    initUsers()
 
 
 @app.errorhandler(404)  # catch for URL not found
@@ -71,7 +71,7 @@ def allow_origin(origin):
     def decorator(f):
         @functools.wraps(f)
         def wrapper(*args, **kwargs):
-            if origin in ['http://localhost:4100', 'http://127.0.0.1:4100', 'https://nighthawkcoders.github.io']:
+            if origin in ['http://localhost:4100', 'http://127.0.0.1:4100', 'http://127.0.0.1:4200', 'http://localhost:4200', 'https://vynz123.github.io']:
                 cors.add_allowed_origin(origin)
             return f(*args, **kwargs)
         return wrapper
@@ -84,9 +84,8 @@ custom_cli = AppGroup('custom', help='Custom commands')
 @custom_cli.command('generate_data')
 def generate_data():
     initUsers()
-    initPlayers()
-
-
+    initSongs()
+    
 # Register the custom command group with the Flask application
 app.cli.add_command(custom_cli)
         

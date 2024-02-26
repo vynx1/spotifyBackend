@@ -203,6 +203,52 @@ class UserAPI:
             return make_response(jsonify(response), 401)
 
 
+    class _Update(Resource):
+        @token_required
+        def put(self, current_user):
+            try:
+                body = request.get_json()
+                if not body:
+                    return {
+                        "message": "Please provide user details",
+                        "data": None,
+                        "error": "Bad request"
+                    }, 400
+                ''' Get Data '''
+                uid = body.get('uid')
+                if uid is None:
+                    return {'message': f'User ID is missing'}, 400
+                
+                ''' Find user '''
+                user = User.query.filter_by(_uid=uid).first()
+                if user:
+                    # Update user attributes if provided in the request body
+                    if 'name' in body:
+                        user.name = body['name']
+                    if 'password' in body:
+                        user.set_password(body['password'])
+                    if 'dob' in body:
+                        try:
+                            user.dob = datetime.strptime(body['dob'], '%Y-%m-%d').date()
+                        except ValueError:
+                            return {'message': f'Invalid date format for dob'}, 400
+                    if 'email' in body:
+                        user.email = body['email']
+                    
+                    # Commit changes to the database
+                    user.update()
+                    
+                    return {'message': f'Successfully updated user {uid}'}
+                else:
+                    return {'message': f'User with ID {uid} not found'}, 404
+                
+            except Exception as e:
+                return {
+                        "message": "Something went wrong!",
+                        "error": str(e),
+                        "data": None
+                }, 500
+
 
     class Logout(Resource):
         @login_required
@@ -221,3 +267,4 @@ class UserAPI:
     api.add_resource(Logout, '/logout')
     api.add_resource(_Create, '/create')
     api.add_resource(_Delete, '/delete')
+    api.add_resource(_Update, '/update')

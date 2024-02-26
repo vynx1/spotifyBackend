@@ -9,7 +9,6 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-
 class User(db.Model):
     __tablename__ = 'users'  
 
@@ -18,14 +17,14 @@ class User(db.Model):
     _uid = db.Column(db.String(255), unique=True, nullable=False)
     _password = db.Column(db.String(255), unique=False, nullable=False)
     _email = db.Column(db.String(255), unique=True, nullable=False)
+    _dob = db.Column(db.Date)
 
-
-
-    def __init__(self, name, uid, email, password="123qwerty" ):
+    def __init__(self, name, uid, email, password="123qwerty", dob=date.today()):
         self._name = name
         self._uid = uid
         self._email = email
         self.set_password(password)
+        self._dob = dob
 
     @property
     def email(self):
@@ -68,6 +67,21 @@ class User(db.Model):
         result = check_password_hash(self._password, password)
         return result
 
+    @property
+    def dob(self):
+        dob_string = self._dob.strftime('%m-%d-%Y')
+        return dob_string
+    
+    # dob should be have verification for type date
+    @dob.setter
+    def dob(self, dob):
+        self._dob = dob
+    
+    @property
+    def age(self):
+        today = date.today()
+        return today.year - self._dob.year - ((today.month, today.day) < (self._dob.month, self._dob.day))
+
     def __str__(self):
         return json.dumps(self.read())
 
@@ -86,9 +100,11 @@ class User(db.Model):
             "name": self.name,
             "uid": self.uid,
             "email": self.email,
+            "dob": self.dob,
+            "age": self.age,
         }
 
-    def update(self, name="", uid="", password="", email=""):
+    def update(self, name="", uid="", password=""):
         """only updates values with length"""
         if len(name) > 0:
             self.name = name
@@ -96,8 +112,6 @@ class User(db.Model):
             self.uid = uid
         if len(password) > 0:
             self.set_password(password)
-        if len(email) > 0:
-            self.email = email
         db.session.commit()
         return self
     
@@ -113,34 +127,32 @@ class User(db.Model):
 
 def initUsers():
     with app.app_context():
-
+        """Create database and tables"""
         db.create_all()
 
-     
+        """Tester data for table"""
         users_data = [
-    {'name': 'Thomas Edison', 'uid': 'toby', 'email': 'thomas@example.com', 'password': '123toby'},
+    {'name': 'Thomas Edison', 'uid': 'toby', 'email': 'thomas@example.com', 'password': '123toby', 'dob': date(1847, 2, 11)},
     ]
-
-        # iterate
         for user_data in users_data:
             existing_user = User.query.filter_by(_uid=user_data['uid']).first()
-            # If user exists, print a message and update user data
+
             if existing_user:
                 print(f"User with _uid '{user_data['uid']}' already exists. Updating user data.")
                 existing_user.update(
                     name=user_data['name'],
                     email=user_data['email'],
                     password=user_data['password'],
+                    dob=user_data['dob']
                 )
-                # If user does not exist, create a new user and add to the database
             else:
                 new_user = User(
                     name=user_data['name'],
                     uid=user_data['uid'],
                     email=user_data['email'],
                     password=user_data['password'],
+                    dob = user_data['dob']
                 )
                 db.session.add(new_user)
 
         db.session.commit()
-        
