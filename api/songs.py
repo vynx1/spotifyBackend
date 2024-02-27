@@ -87,4 +87,4 @@ class SongAPI(Resource):
 
         return jsonify(new_song.to_dict()), 201
 
-api.add_resource(SongAPI, '/<int:song_id>', '/all')
+api.add_resource(SongAPI, '/', '/<int:song_id>', '/all') 
