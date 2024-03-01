@@ -106,8 +106,6 @@ class User(db.Model):
         db.session.delete(self)
         db.session.commit()
         return None
-    
-    print("WOOHOO")
 
 
 """Database Creation and Testing """
