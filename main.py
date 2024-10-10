@@ -35,18 +35,13 @@ app.register_blueprint(player_api)
 app.register_blueprint(Song_api)
 app.register_blueprint(app_projects) # register app pages
 
-cors = CORS(app, resources={r"/api/*": {
-    "origins": ["http://127.0.0.1:5500",
+cors = CORS(app, resources={r"/api/*": {"origins": ["http://127.0.0.1:5500", "http://127.0.0.1:4100"]}})
 
-                                                    
-                                                    ]}})
 
 @app.before_request
 def before_request():
-    allowed_origin = request.headers.get('Origin')
-    if allowed_origin in ['http://localhost:4100', 'http://127.0.0.1:4100', 'https://nighthawkcoders.github.io']:
-        cors.add_allowed_origin(allowed_origin)
-    initSongs()
+    initSongs()  # Keep the initialization, remove the CORS part
+
 
 
 @app.errorhandler(404)  # catch for URL not found
